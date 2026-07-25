@@ -2,7 +2,7 @@ import Foundation
 
 /// Stores user overrides for built-in copy presets
 /// Only non-nil fields represent changes from the base preset
-public struct CopyPresetOverrides: Codable, Equatable {
+public struct CopyPresetOverrides: Codable, Equatable, Sendable {
     public let presetID: UUID
     public var includeFiles: Bool?
     public var includeUserPrompt: Bool?

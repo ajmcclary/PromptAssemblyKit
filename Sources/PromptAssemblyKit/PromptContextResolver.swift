@@ -8,7 +8,7 @@ import Foundation
 public enum PromptContextResolver {
 	/// The current UI fallbacks the resolver merges against. The app maps its
 	/// git UI mode (GitDiffInclusionMode) to `GitInclusion` at the boundary.
-	public struct UIDefaults {
+	public struct UIDefaults: Sendable {
 		public var xmlCopyPromptFormat: ApplyPromptFormat
 		public var fileTreeOption: FileTreeOption
 		public var codeMapUsage: CodeMapUsage

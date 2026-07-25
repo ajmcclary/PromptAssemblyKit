@@ -3,7 +3,7 @@ import Foundation
 // MARK: - Enums
 
 /// Built-in option labels (stable IDs for migration & referencing)
-public enum CopyPresetKind: String, Codable, CaseIterable {
+public enum CopyPresetKind: String, Codable, CaseIterable, Sendable {
     case standard      // Standard default preset
     case plan          // Architect planning copy
     case manual        // Manual current behavior
@@ -18,7 +18,7 @@ public enum CopyPresetKind: String, Codable, CaseIterable {
 }
 
 /// How to include git diff in the copy
-public enum GitInclusion: String, Codable, CaseIterable {
+public enum GitInclusion: String, Codable, CaseIterable, Sendable {
     case none
     case selected
     case complete
@@ -28,7 +28,12 @@ public enum GitInclusion: String, Codable, CaseIterable {
 
 /// Copy preset describes behavior at a high level.
 /// Some fields are optional overrides; unspecified means "use current workspace/UI state".
-public struct CopyPreset: Identifiable, Equatable {
+/// `Sendable`: every stored property is an immutable-by-value Foundation or
+/// standard-library value (`UUID`, `String`, `Bool`, `[UUID]`, and this
+/// module's raw-value enums). There is no reference storage and no
+/// lazily-computed cache, so a copy shared across isolation domains cannot
+/// observe another domain's mutation.
+public struct CopyPreset: Identifiable, Equatable, Sendable {
     public let id: UUID
     public let name: String
     public let builtInKind: CopyPresetKind?
@@ -171,7 +176,7 @@ extension CopyPreset: Codable {
 
 /// A resolved, runtime config after merging preset + workspace overrides + capability checks.
 /// Used by both copy and chat prompt builders.
-public struct PromptContextResolved {
+public struct PromptContextResolved: Sendable {
     public var includeFiles: Bool
     public var includeUserPrompt: Bool
     public var includeMetaPrompts: Bool

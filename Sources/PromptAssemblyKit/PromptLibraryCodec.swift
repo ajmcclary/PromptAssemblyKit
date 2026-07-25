@@ -2,7 +2,7 @@ import Foundation
 
 /// External structure used for importing and exporting prompts,
 /// without relying on our internal UUID.
-public struct PromptExport: Codable, Equatable {
+public struct PromptExport: Codable, Equatable, Sendable {
 	public let title: String
 	public let content: String
 

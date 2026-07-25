@@ -3,7 +3,7 @@ import Foundation
 // Hoisted verbatim out of SystemPromptService.swift (they were top-level
 // enums there) — decomposition step 6. Raw values persist; never rename.
 
-public enum ApplyPromptFormat: String, CaseIterable, Codable {
+public enum ApplyPromptFormat: String, CaseIterable, Codable, Sendable {
 	case diff      = "Diff"
 	case whole     = "Whole"
 	/// Pro-only architect flow (delegate-edit capable)
@@ -11,7 +11,7 @@ public enum ApplyPromptFormat: String, CaseIterable, Codable {
 }
 
 /// System prompt flavors for different preset types
-public enum SystemPromptFlavor: String, Codable {
+public enum SystemPromptFlavor: String, Codable, Sendable {
     case architectPlan       // planning/architecture (non-edit)
     case codeEditDiff        // code edits via diff (with allowRewrite flag handled upstream)
     case codeEditWhole       // whole-file rewrite

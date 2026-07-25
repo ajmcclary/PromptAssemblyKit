@@ -9,7 +9,7 @@ import Foundation
 
 /// All blocks that can appear in the final prompt, in *logical* order.
 /// The raw value is persisted in UserDefaults, so never rename casually.
-public enum PromptSection: String, CaseIterable, Identifiable, Codable {
+public enum PromptSection: String, CaseIterable, Identifiable, Codable, Sendable {
 	case fileMap, fileContents, metaPrompts, diffFormatting, userInstructions, gitDiff
 	
 	public var id: String { rawValue }
@@ -26,7 +26,7 @@ public enum PromptSection: String, CaseIterable, Identifiable, Codable {
 }
 
 /// Combines independently‑produced snippets in a caller‑supplied order.
-public struct PromptAssemblyBuilder {
+public struct PromptAssemblyBuilder: Sendable {
     // Default order (2025-08): place Diff Formatting before Meta Prompts
     public static let defaultSectionOrder: [PromptSection] = [ .fileMap, .fileContents, .gitDiff, .diffFormatting, .metaPrompts, .userInstructions ]
 	

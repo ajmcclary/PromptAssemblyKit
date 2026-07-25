@@ -10,7 +10,7 @@ import Foundation
 ///   the flag existed).
 /// - Equality deliberately IGNORES `isUserEdited`: built-in upgrade and reset
 ///   flows compare identity + visible content only.
-public struct StoredPrompt: Identifiable, Codable, Equatable {
+public struct StoredPrompt: Identifiable, Codable, Equatable, Sendable {
 	public let id: UUID
 	public var title: String
 	public var content: String

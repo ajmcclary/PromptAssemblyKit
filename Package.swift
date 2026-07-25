@@ -24,14 +24,21 @@ import PackageDescription
 // server implementation, and the app's stateful prompt coordinators
 // (PromptViewModel, PromptStorage, SystemPromptService stay app-side).
 //
-// Zero package dependencies (Foundation only). Swift 5 language mode
-// keeps the moved code byte-behaviorally identical (AgentRuntimeKit /
-// RepoPromptCore promoted-target precedent).
+// Zero package dependencies (Foundation only). Swift 6 language mode with
+// StrictConcurrency: every public type here is an immutable Foundation
+// value type (enums, structs of Sendable stored properties) or a stateless
+// namespace of pure static functions, so full data-race checking is
+// satisfied without any isolation annotation or escape hatch.
+let swiftSettings: [SwiftSetting] = [
+    .swiftLanguageMode(.v6),
+    .enableExperimentalFeature("StrictConcurrency")
+]
+
 let package = Package(
     name: "PromptAssemblyKit",
     platforms: [
-        .macOS(.v14),
-        .iOS(.v17)
+        .macOS("27.0"),
+        .iOS("27.0")
     ],
     products: [
         .library(name: "PromptAssemblyKit", targets: ["PromptAssemblyKit"])
@@ -39,12 +46,12 @@ let package = Package(
     targets: [
         .target(
             name: "PromptAssemblyKit",
-            swiftSettings: [.swiftLanguageMode(.v5)]
+            swiftSettings: swiftSettings
         ),
         .testTarget(
             name: "PromptAssemblyKitTests",
             dependencies: ["PromptAssemblyKit"],
-            swiftSettings: [.swiftLanguageMode(.v5)]
+            swiftSettings: swiftSettings
         )
     ]
 )
