@@ -55,9 +55,9 @@ the caller.
 
 ```swift
 dependencies: [
-    // 0.1.0-beta.2 is a prerelease identifier — SwiftPM only resolves
+    // 0.1.0-beta.3 is a prerelease identifier — SwiftPM only resolves
     // prerelease tags when the lower bound itself names one.
-    .package(url: "https://github.com/ajmcclary/PromptAssemblyKit.git", .upToNextMinor(from: "0.1.0-beta.2"))
+    .package(url: "https://github.com/ajmcclary/PromptAssemblyKit.git", .upToNextMinor(from: "0.1.0-beta.3"))
 ]
 ```
 
